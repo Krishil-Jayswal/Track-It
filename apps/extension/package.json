@@ -1,0 +1,18 @@
+{
+  "name": "extension",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build src/worker.ts src/scrapper.ts --target=browser --outdir=dist",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/chrome": "^0.0.329",
+    "@repo/eslint-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

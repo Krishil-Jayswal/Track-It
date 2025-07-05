@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Track It",
+    "version": "0.0.1",
+    "description": "An AI powered tool for tracking your googling and learning journey.",
+    "permissions": ["tabs", "activeTab", "scripting", "storage"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+        "service_worker": "dist/worker.js"
+    },
+    "action": {
+        "default_title": "Track It"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["dist/scrapper.js"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}
