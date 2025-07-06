@@ -1,6 +1,8 @@
 import { getSiteDefinition } from "./siteregistry";
 import { CONTENT_EXTRACTED } from "./types";
 
+const Log_Server_Endpoint = "http://localhost:5000/logs";
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status !== "complete") return;
 
@@ -16,15 +18,18 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.runtime.onMessage.addListener((message, sender) => {
   if (message.type === CONTENT_EXTRACTED) {
-    chrome.tabs.get(sender.tab?.id || NaN, (tab) => {
+    chrome.tabs.get(sender.tab?.id || NaN, async (tab) => {
       const log = {
         title: tab.title,
         url: tab.url,
         content: message.content,
         timestamp: new Date().toISOString(),
       };
-      // TODO: Send log to serve with auth Token.
-      console.log(log);
+      const res = await fetch(Log_Server_Endpoint, {
+        method: "POST",
+        body: JSON.stringify(log),
+      });
+      console.log(await res.text());
     });
   }
 });
