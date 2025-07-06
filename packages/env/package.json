@@ -1,0 +1,19 @@
+{
+  "name": "@repo/env",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "@repo/validation": "workspace:*"
+  }
+}
