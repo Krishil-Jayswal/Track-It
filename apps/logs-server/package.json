@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@repo/validation": "workspace:*",
-    "@repo/env": "workspace:*"
+    "@repo/env": "workspace:*",
+    "@repo/kafka": "workspace:*"
   }
 }

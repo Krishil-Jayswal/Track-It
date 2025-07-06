@@ -1,10 +1,11 @@
 {
-  "name": "@repo/env",
+  "name": "@repo/kafka",
   "module": "index.ts",
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./meta": "./src/types.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -14,7 +15,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "dotenv": "^17.0.1",
-    "@repo/validation": "workspace:*"
+    "@repo/env": "workspace:*",
+    "kafkajs": "^2.2.4"
   }
 }
