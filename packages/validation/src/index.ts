@@ -11,3 +11,5 @@ export const EnvSchema = z.object({
   LOG_PORT: z.string().default("Your Log server port."),
   KAFKA_URL: z.string().default("Your Kafka cluster url."),
 });
+
+export type Log = z.infer<typeof LogSchema>;
