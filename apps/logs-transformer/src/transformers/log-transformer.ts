@@ -1,4 +1,4 @@
-import { createConsumer, producer } from "@repo/kafka";
+import { createConsumer } from "@repo/kafka";
 import { GroupId, Topic } from "@repo/kafka/meta";
 import { Log } from "@repo/validation";
 import { html_transform } from "./html-transformer.js";

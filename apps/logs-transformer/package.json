@@ -11,13 +11,14 @@
     "@repo/kafka": "workspace:*",
     "@repo/validation": "workspace:*",
     "cheerio": "1.0.0-rc.12",
-    "joplin-turndown-plugin-gfm": "^1.0.12",
     "koffi": "^2.12.1",
     "turndown": "^7.2.0"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/bun": "latest",
-    "@repo/typescript-config": "workspace:*"
+    "@types/turndown": "^5.0.5"
   },
   "peerDependencies": {
     "typescript": "^5"
