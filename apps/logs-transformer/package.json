@@ -5,13 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "bun --hot src/index.ts",
-    "start": "bun src/index.ts"
+    "start": "bun src/index.ts",
+    "lint": "eslint src --ext .ts"
   },
   "dependencies": {
     "@repo/kafka": "workspace:*",
     "@repo/validation": "workspace:*",
     "cheerio": "1.0.0-rc.12",
-    "koffi": "^2.12.1",
     "turndown": "^7.2.0"
   },
   "devDependencies": {

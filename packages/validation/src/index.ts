@@ -7,9 +7,26 @@ export const LogSchema = z.strictObject({
   timestamp: z.string().datetime(),
 });
 
+export const OAuthCallbackSchema = z.object({
+  code: z.string(),
+  state: z.string(),
+});
+
+export enum OAUTH_TYPE {
+  GOOGLE = "GOOGLE",
+  GITHUB = "GITHUB",
+}
+
 export const EnvSchema = z.object({
-  LOG_PORT: z.string().default("Your Log server port."),
-  KAFKA_URL: z.string().default("Your Kafka cluster url."),
+  LOG_PORT: z.string().default("Log server port."),
+  HTTP_PORT: z.string().default("HTTP server port."),
+  KAFKA_URL: z.string().default("Kafka cluster url."),
+  REDIS_URL: z.string().default("Redis url"),
+  CLIENT_URL: z.string().default("Frontend Url"),
+  JWT_SECRET: z.string().default("JWT Secret"),
+  GOOGLE_CLIENT_ID: z.string().default("Google oauth client Id."),
+  GOOGLE_CLIENT_SECRET: z.string().default("Google oauth client Secret."),
+  BASE_REDIRECT_URL: z.string().default("Base redirect url."),
 });
 
 export type Log = z.infer<typeof LogSchema>;
