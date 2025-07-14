@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String     @id @default(uuid())
+  name       String
+  email      String
+  avatar     String
+  oauth_type Oauth_Type
+  oauth_id   String
+  
+  @@unique([oauth_type, oauth_id])
+}
+
+enum Oauth_Type {
+  GOOGLE
+  GITHUB
+}

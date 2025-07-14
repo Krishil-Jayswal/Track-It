@@ -9,7 +9,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "kafka:migrate": "cd ./packages/kafka && bun run ./src/migrations.ts"
+    "kafka:migrate": "cd ./packages/kafka && bun run ./src/migrations.ts",
+    "db:generate": "cd ./packages/db && prisma generate",
+    "db:migrate": "cd ./packages/db && prisma migrate dev"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",

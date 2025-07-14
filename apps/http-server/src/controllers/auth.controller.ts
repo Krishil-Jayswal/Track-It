@@ -5,6 +5,8 @@ import { randomBytes } from "node:crypto";
 import { redis } from "@repo/redis";
 import { env } from "@repo/env";
 import { OAUTH_TYPE, OAuthCallbackSchema } from "@repo/validation";
+import { prisma } from "@repo/db";
+import { createToken, TOKEN_TYPE } from "@repo/jwt";
 
 export const googleAuth = async (req: Request, res: Response) => {
   try {
@@ -28,14 +30,14 @@ export const googleAuthCallback = async (req: Request, res: Response) => {
   try {
     const validation = OAuthCallbackSchema.safeParse(req.query);
     if (!validation.success) {
-      res.redirect(env.CLIENT_URL);
+      res.redirect(`${env.CLIENT_URL}/callback`);
       return;
     }
     const { code, state } = validation.data;
     const stateKey = KeyManager.oauthStateKey(state);
     const exists = await redis.getdel(stateKey);
     if (exists !== "YES") {
-      res.redirect(env.CLIENT_URL);
+      res.redirect(`${env.CLIENT_URL}/callback`);
       return;
     }
     const {
@@ -46,20 +48,31 @@ export const googleAuthCallback = async (req: Request, res: Response) => {
     });
     const payload = ticket.getPayload();
     if (!payload) {
-      res.redirect(env.CLIENT_URL);
+      res.redirect(`${env.CLIENT_URL}/callback`);
       return;
     }
-    const user = {
-      name: payload.name!,
-      email: payload.email!,
-      oauth_type: OAUTH_TYPE.GOOGLE,
-      oauth_id: payload.sub,
-      avatar_url: payload.picture!,
-    };
-    console.log(user);
-    res.redirect(env.CLIENT_URL);
+    const user = await prisma.user.upsert({
+      where: {
+        oauth_type_oauth_id: {
+          oauth_type: OAUTH_TYPE.GOOGLE,
+          oauth_id: payload.sub,
+        },
+      },
+      create: {
+        name: payload.name!,
+        email: payload.email!,
+        avatar: payload.picture!,
+        oauth_type: OAUTH_TYPE.GOOGLE,
+        oauth_id: payload.sub,
+      },
+      update: {},
+    });
+
+    const token = createToken(user.id, TOKEN_TYPE.USER);
+
+    res.redirect(`${env.CLIENT_URL}/callback?token=${token}`);
   } catch (error) {
     console.error("Error in google auth callback controller: ", error);
-    res.redirect(env.CLIENT_URL);
+    res.redirect(`${env.CLIENT_URL}/callback`);
   }
 };

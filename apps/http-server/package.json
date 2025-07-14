@@ -18,8 +18,10 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
     "@repo/env": "workspace:*",
     "@repo/redis": "workspace:*",
+    "@repo/jwt": "workspace:*",
     "express": "^5.1.0",
     "google-auth-library": "^10.1.0"
   }
