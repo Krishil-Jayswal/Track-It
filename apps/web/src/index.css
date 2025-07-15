@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MindTrace Design System - AI-powered learning platform for developers
+All colors MUST be HSL. Modern, clean aesthetic inspired by Notion + Linear.
+*/
+
+@layer base {
+  :root {
+    /* Core Background & Text */
+    --background: 0 0% 99%;
+    --foreground: 240 10% 3.9%;
+    
+    /* Card System */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    
+    /* Overlays */
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    /* Primary Brand - Vibrant Purple */
+    --primary: 270 90% 65%;
+    --primary-foreground: 0 0% 98%;
+    --primary-muted: 270 90% 85%;
+    
+    /* Secondary - Electric Pink */
+    --secondary: 320 90% 65%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-muted: 320 90% 85%;
+    
+    /* Muted Grays */
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    
+    /* Accent - Soft Blue */
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 9% 10%;
+    
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    
+    /* Form Elements */
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 270 90% 65%;
+    
+    /* Gradients - Rainbow Learning Theme */
+    --gradient-primary: linear-gradient(135deg, hsl(270 90% 65%), hsl(320 90% 65%), hsl(20 90% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 90% 65%) 0%, hsl(320 90% 65%) 50%, hsl(20 90% 65%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 6px -1px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 10px 15px -3px hsl(var(--primary) / 0.1);
+    --shadow-large: 0 25px 50px -12px hsl(var(--primary) / 0.25);
+    
+    /* Radius */
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Mode - Optimized for developer workflows */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    /* Dark Cards */
+    --card: 240 10% 5%;
+    --card-foreground: 0 0% 98%;
+    
+    /* Dark Overlays */
+    --popover: 240 10% 5%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Primary - Vibrant Purple (lighter in dark) */
+    --primary: 270 90% 75%;
+    --primary-foreground: 240 10% 3.9%;
+    --primary-muted: 270 90% 25%;
+    
+    /* Secondary - Electric Pink */
+    --secondary: 320 90% 75%;
+    --secondary-foreground: 240 10% 3.9%;
+    --secondary-muted: 320 90% 35%;
+    
+    /* Dark Muted */
+    --muted: 240 4% 8%;
+    --muted-foreground: 240 5% 65%;
+    
+    /* Dark Accent */
+    --accent: 240 4% 8%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Dark Status Colors */
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 98%;
+    
+    /* Dark Form Elements */
+    --border: 240 4% 12%;
+    --input: 240 4% 12%;
+    --ring: 270 90% 75%;
+    
+    /* Dark Gradients - Rainbow Learning Theme */
+    --gradient-primary: linear-gradient(135deg, hsl(270 90% 75%), hsl(320 90% 75%), hsl(20 90% 75%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 90% 75%) 0%, hsl(320 90% 75%) 50%, hsl(20 90% 75%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    
+    /* Dark Shadows */
+    --shadow-soft: 0 4px 6px -1px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 10px 15px -3px hsl(0 0% 0% / 0.3);
+    --shadow-large: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
