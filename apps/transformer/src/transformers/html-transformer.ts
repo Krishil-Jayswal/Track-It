@@ -60,7 +60,7 @@ const forceIncludeMainTags = [
   ".swoogo-agenda",
 ];
 
-export const html_transform = async (
+export const htmlTransform = async (
   html: string,
   url: string,
   scrapeOptions: {

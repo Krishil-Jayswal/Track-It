@@ -1,22 +1,23 @@
-import { createConsumer, producer } from "@repo/kafka";
+import { producer } from "@repo/kafka/producer";
+import { createConsumer } from "@repo/kafka/consumer";
 import { GroupId, Topic } from "@repo/kafka/meta";
 import { Log } from "@repo/validation";
-import { html_transform } from "./html-transformer.js";
-import { markdown_transform } from "./markdown-transformer.js";
+import { htmlTransform } from "./transformers/html-transformer.js";
+import { markdownTransform } from "./transformers/markdown-transformer.js";
 
-export class LogTransformer {
+class LogTransformer {
   public static async start() {
-    const consumer = await createConsumer(GroupId.LOGS_TRANSFORMERS);
+    const consumer = await createConsumer(GroupId.TRANSFORMERS);
     await consumer.subscribe({ topic: Topic.RAW_LOGS });
     consumer.run({
       eachMessage: async ({ message }) => {
         const log: Log = JSON.parse(message.value?.toString() || "{}");
-        log.content = await html_transform(log.content, log.url, {
+        log.content = await htmlTransform(log.content, log.url, {
           onlyMainContent: true,
           includeTags: [],
           excludeTags: [],
         });
-        log.content = await markdown_transform(log.content);
+        log.content = await markdownTransform(log.content);
         await producer.send({
           topic: Topic.CLEANED_LOGS,
           messages: [{ value: JSON.stringify(log) }],
@@ -25,3 +26,5 @@ export class LogTransformer {
     });
   }
 }
+
+LogTransformer.start();

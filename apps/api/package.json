@@ -1,5 +1,5 @@
 {
-  "name": "http-server",
+  "name": "api",
   "module": "index.ts",
   "type": "module",
   "private": true,

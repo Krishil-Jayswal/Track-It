@@ -18,8 +18,8 @@ export enum OAUTH_TYPE {
 }
 
 export const EnvSchema = z.object({
-  LOG_PORT: z.string().default("Log server port."),
-  HTTP_PORT: z.string().default("HTTP server port."),
+  LOGGER_PORT: z.string().default("Logger server port."),
+  API_PORT: z.string().default("API server port."),
   KAFKA_URL: z.string().default("Kafka cluster url."),
   REDIS_URL: z.string().default("Redis url"),
   DATABASE_URL: z.string().default("Database Url"),

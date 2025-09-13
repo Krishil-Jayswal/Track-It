@@ -4,8 +4,9 @@
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/index.ts",
-    "./meta": "./src/types.ts"
+    "./producer": "./src/producer.ts",
+    "./consumer": "./src/consumer.ts",
+    "./meta": "./src/meta.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -1,5 +1,5 @@
 {
-  "name": "logs-transformer",
+  "name": "transformer",
   "module": "index.ts",
   "type": "module",
   "private": true,

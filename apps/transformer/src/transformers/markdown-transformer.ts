@@ -1,8 +1,8 @@
 import TurndownService, { Options } from "turndown";
 
-export async function markdown_transform(
+export const markdownTransform = async (
   html: string | null | undefined,
-): Promise<string> {
+): Promise<string> => {
   if (!html) return "";
 
   const turndownService = new TurndownService({ headingStyle: "atx" });
@@ -33,7 +33,7 @@ export async function markdown_transform(
     console.error("Error converting HTML to Markdown", { error });
     return "";
   }
-}
+};
 
 function processMultiLineLinks(markdownContent: string): string {
   let insideLink = false;

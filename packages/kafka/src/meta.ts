@@ -6,5 +6,5 @@ export enum Topic {
 }
 
 export enum GroupId {
-  LOGS_TRANSFORMERS = "logs-transformers",
+  TRANSFORMERS = "transformers",
 }
