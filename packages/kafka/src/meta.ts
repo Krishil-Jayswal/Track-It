@@ -7,4 +7,5 @@ export enum Topic {
 
 export enum GroupId {
   TRANSFORMERS = "transformers",
+  PUSHERS = "pushers",
 }

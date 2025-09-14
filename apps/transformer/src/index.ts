@@ -20,7 +20,7 @@ class LogTransformer {
         log.content = await markdownTransform(log.content);
         await producer.send({
           topic: Topic.CLEANED_LOGS,
-          messages: [{ value: JSON.stringify(log) }],
+          messages: [{ value: JSON.stringify(log), key: log.userId }],
         });
       },
     });

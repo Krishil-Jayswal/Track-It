@@ -8,11 +8,11 @@ app.use(express.json());
 
 app.use("/api/v1", V1Router);
 
-app.listen(env.HTTP_PORT, (error) => {
+app.listen(env.API_PORT, (error) => {
   if (error) {
     console.error("Error in starting server: ", error);
     process.exit(1);
   }
 
-  console.log(`Server started at port ${env.HTTP_PORT}`);
+  console.log(`Server started at port ${env.API_PORT}`);
 });

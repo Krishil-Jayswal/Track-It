@@ -1,0 +1,20 @@
+{
+  "name": "@repo/object-store",
+  "module": "index.ts",
+  "type": "module",
+  "private": "true",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.27.0",
+    "@repo/env": "*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
