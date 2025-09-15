@@ -1,14 +1,15 @@
 import { getSiteDefinition } from "./siteregistry";
-import { CONTENT_EXTRACTED } from "./types";
+import { Message, MessageType } from "./types";
 
 const main = () => {
   const site = getSiteDefinition(window.location.hostname);
   if (!site) return;
   const content = site.extractor();
-  chrome.runtime.sendMessage({
-    type: CONTENT_EXTRACTED,
-    content: content || "",
-  });
+  const message: Message = {
+    type: MessageType.CONTENT_EXTRACTED,
+    content,
+  };
+  chrome.runtime.sendMessage(message);
 };
 
 main();

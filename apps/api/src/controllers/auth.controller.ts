@@ -72,7 +72,22 @@ export const googleAuthCallback = async (req: Request, res: Response) => {
 
     res.redirect(`${env.CLIENT_URL}/callback?token=${token}`);
   } catch (error) {
-    console.error("Error in google auth callback controller: ", error);
+    console.error(
+      `Error in google auth callback controller: ${(error as Error).message}`,
+    );
     res.redirect(`${env.CLIENT_URL}/callback`);
+  }
+};
+
+export const getToken = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user!;
+    const token = createToken(id, TOKEN_TYPE.EXTENSION);
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(
+      `Error in token creating controller: ${(error as Error).message}`,
+    );
+    res.status(500).json({ message: "Internal server error" });
   }
 };

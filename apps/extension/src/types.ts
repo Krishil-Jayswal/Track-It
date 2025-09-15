@@ -4,4 +4,17 @@ export type LoggableSite = {
   extractor: () => string;
 };
 
-export const CONTENT_EXTRACTED = "CONTENT_EXTRACTED";
+export enum MessageType {
+  CONTENT_EXTRACTED = "CONTENT_EXTRACTED",
+  SET_TOKEN = "SET_TOKEN",
+}
+
+export type Message =
+  | {
+      type: MessageType.CONTENT_EXTRACTED;
+      content: string;
+    }
+  | {
+      type: MessageType.SET_TOKEN;
+      token: string;
+    };

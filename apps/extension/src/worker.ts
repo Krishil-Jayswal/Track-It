@@ -1,8 +1,12 @@
 import { getSiteDefinition } from "./siteregistry";
-import { CONTENT_EXTRACTED } from "./types";
+import { Message, MessageType } from "./types";
 
 const Log_Server_Endpoint = "http://localhost:5000/logs";
 const sessionId = crypto.randomUUID();
+let token: string;
+chrome.storage.local.get("token").then((res) => {
+  token = res.token;
+});
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status !== "complete") return;
@@ -17,21 +21,32 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   });
 });
 
-chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message.type === CONTENT_EXTRACTED) {
-    chrome.tabs.get(sender.tab?.id || NaN, async (tab) => {
-      const log = {
-        sessionId,
-        title: tab.title,
-        url: tab.url,
-        content: message.content,
-        timestamp: new Date().toISOString(),
-      };
-      const res = await fetch(Log_Server_Endpoint, {
-        method: "POST",
-        body: JSON.stringify(log),
+chrome.runtime.onMessage.addListener((message: Message, sender) => {
+  switch (message.type) {
+    case MessageType.CONTENT_EXTRACTED: {
+      chrome.tabs.get(sender.tab?.id || NaN, async (tab) => {
+        const log = {
+          sessionId,
+          title: tab.title,
+          url: tab.url,
+          content: message.content,
+          timestamp: new Date().toISOString(),
+        };
+        const res = await fetch(Log_Server_Endpoint, {
+          method: "POST",
+          headers: {
+            authorization: token,
+          },
+          body: JSON.stringify(log),
+        });
+        console.log(await res.text());
       });
-      console.log(await res.text());
-    });
+      break;
+    }
+    case MessageType.SET_TOKEN: {
+      chrome.storage.local.set({ token: message.token });
+      token = message.token;
+      break;
+    }
   }
 });

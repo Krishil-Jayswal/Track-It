@@ -17,6 +17,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@repo/jwt": "workspace:*",
     "@repo/validation": "workspace:*",
     "@repo/env": "workspace:*",
     "@repo/kafka": "workspace:*"
