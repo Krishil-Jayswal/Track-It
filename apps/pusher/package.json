@@ -17,6 +17,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@repo/redis": "workspace:*",
     "@repo/kafka": "workspace:*",
     "@repo/object-store": "workspace:*"
   }

@@ -1,5 +1,6 @@
 import { Partitioners } from "kafkajs";
 import { kafka } from "./index.js";
+export type { Producer } from "kafkajs";
 
 export const producer = kafka.producer({
   createPartitioner: Partitioners.DefaultPartitioner,

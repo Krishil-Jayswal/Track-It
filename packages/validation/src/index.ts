@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const LogSchema = z.strictObject({
-  sessionId: z.string(),
   title: z.string(),
   url: z.string().url(),
   content: z.string(),
@@ -42,3 +41,8 @@ export const EnvSchema = z.object({
 });
 
 export type Log = z.infer<typeof LogSchema> & { id: string; userId: string };
+
+export type Session = {
+  userId: string;
+  sessionId: string;
+};

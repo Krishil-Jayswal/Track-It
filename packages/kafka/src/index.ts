@@ -1,4 +1,4 @@
-import { Kafka, Consumer } from "kafkajs";
+import { Kafka } from "kafkajs";
 import { env } from "@repo/env";
 import { clientId } from "./meta.js";
 
