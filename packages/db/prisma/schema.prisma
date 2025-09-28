@@ -15,8 +15,14 @@ model User {
   avatar     String
   oauth_type Oauth_Type
   oauth_id   String
-  
+  sessions   Session[]
   @@unique([oauth_type, oauth_id])
+}
+
+model Session {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
 }
 
 enum Oauth_Type {

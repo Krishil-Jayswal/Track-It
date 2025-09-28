@@ -2,7 +2,7 @@ import { getSiteDefinition } from "./siteregistry";
 import { Message, MessageType } from "./types";
 
 const Log_Server_Endpoint = "http://localhost:5000/logs";
-const sessionId = crypto.randomUUID();
+
 let token: string;
 chrome.storage.local.get("token").then((res) => {
   token = res.token;
@@ -26,7 +26,6 @@ chrome.runtime.onMessage.addListener((message: Message, sender) => {
     case MessageType.CONTENT_EXTRACTED: {
       chrome.tabs.get(sender.tab?.id || NaN, async (tab) => {
         const log = {
-          sessionId,
           title: tab.title,
           url: tab.url,
           content: message.content,

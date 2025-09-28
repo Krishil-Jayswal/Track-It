@@ -5,8 +5,8 @@ const LOGGABLE_SITES: LoggableSite[] = [
     url: "www.google.com",
     script: "dist/scrapper.js",
     extractor: () => {
-      const element = document.querySelector(".LT6XE");
-      return element?.innerHTML ?? "";
+      const element = document.querySelector<HTMLElement>(".LT6XE");
+      return element?.innerText ?? "";
     },
   },
 ];

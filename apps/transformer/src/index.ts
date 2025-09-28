@@ -7,19 +7,21 @@ import { markdownTransform } from "./transformers/markdown-transformer.js";
 
 class LogTransformer {
   public static async start() {
-    const consumer = await createConsumer(GroupId.TRANSFORMERS);
-    await consumer.subscribe({ topic: Topic.RAW_LOGS });
+    const consumer = await createConsumer(GroupId.TRANSFORMER);
+
+    await consumer.subscribe({ topic: Topic.LOGS_RAW, fromBeginning: true });
+
     consumer.run({
       eachMessage: async ({ message }) => {
         const log: Log = JSON.parse(message.value?.toString() || "{}");
-        log.content = await htmlTransform(log.content, log.url, {
+        log.content = htmlTransform(log.content, log.url, {
           onlyMainContent: true,
           includeTags: [],
           excludeTags: [],
         });
         log.content = await markdownTransform(log.content);
         await producer.send({
-          topic: Topic.CLEANED_LOGS,
+          topic: Topic.LOGS_CLEANED,
           messages: [{ value: JSON.stringify(log), key: log.userId }],
         });
       },

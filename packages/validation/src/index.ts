@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Zod Schemas
 export const LogSchema = z.strictObject({
   title: z.string(),
   url: z.string().url(),
@@ -11,11 +12,6 @@ export const OAuthCallbackSchema = z.object({
   code: z.string(),
   state: z.string(),
 });
-
-export enum OAUTH_TYPE {
-  GOOGLE = "GOOGLE",
-  GITHUB = "GITHUB",
-}
 
 export const EnvSchema = z.object({
   LOGGER_PORT: z.string().default("Logger server port."),
@@ -38,11 +34,26 @@ export const EnvSchema = z.object({
 
   ABS_CONNECTION_URL: z.string().default("Azure blob connection url"),
   ABS_CONTAINER_NAME: z.string().default("Azure blob container name."),
+
+  GROQ_API_KEY: z.string().default("Groq cloud api key."),
 });
 
-export type Log = z.infer<typeof LogSchema> & { id: string; userId: string };
+// Enums
+export enum OAUTH_TYPE {
+  GOOGLE = "GOOGLE",
+  GITHUB = "GITHUB",
+}
 
+// Types
+export type LogData = z.infer<typeof LogSchema>;
+export type Log = LogData & { id: string; userId: string };
 export type Session = {
   userId: string;
   sessionId: string;
 };
+export type LLMResponse = SessionSummary & { content: string };
+type SessionSummary = {
+  summary: string;
+  tags: string[];
+};
+export type SessionMetadata = SessionSummary & Session;

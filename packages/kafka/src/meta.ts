@@ -1,12 +1,14 @@
 export const clientId = "trackit";
 
 export enum Topic {
-  RAW_LOGS = "raw-logs",
-  CLEANED_LOGS = "cleaned-logs",
-  SESSION_ENDED = "session-ended",
+  LOGS_RAW = "logs.raw",
+  LOGS_CLEANED = "logs.cleaned",
+  SESSION_ENDED = "session.ended",
+  SESSION_SUMMARIZED = "session.summarized",
 }
 
 export enum GroupId {
-  TRANSFORMERS = "transformers",
-  PUSHERS = "pushers",
+  TRANSFORMER = "transformer",
+  PUSHER = "pusher",
+  SUMMARIZER = "summarizer",
 }

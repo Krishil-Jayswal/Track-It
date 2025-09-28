@@ -8,10 +8,10 @@ await admin.connect();
 
 const existingTopics = await admin.listTopics();
 
-const requiredTopics: ITopicConfig[] = [
-  { topic: Topic.RAW_LOGS, numPartitions: 2, replicationFactor: 1 },
-  { topic: Topic.CLEANED_LOGS, numPartitions: 2, replicationFactor: 1 },
-];
+const requiredTopics: ITopicConfig[] = [];
+Object.values(Topic).forEach((t) =>
+  requiredTopics.push({ topic: t, numPartitions: 2, replicationFactor: 1 }),
+);
 
 const topicsToCreate = requiredTopics.filter(
   (t) => !existingTopics.includes(t.topic),

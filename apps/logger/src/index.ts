@@ -35,7 +35,7 @@ Bun.serve({
             userId,
           };
           await producer.send({
-            topic: Topic.RAW_LOGS,
+            topic: Topic.LOGS_RAW,
             messages: [{ value: JSON.stringify(log), key: log.userId }],
           });
           return new Response("Log created successfully", { status: 200 });

@@ -1,19 +1,24 @@
 import { createConsumer } from "@repo/kafka/consumer";
 import { GroupId, Topic } from "@repo/kafka/meta";
-import { Log } from "@repo/validation";
+import { Log, LogData } from "@repo/validation";
 import { upload } from "@repo/object-store";
 import { join } from "node:path";
 import { SessionManager } from "./managers/session.manager.js";
 
 class Pusher {
   public static async start() {
-    const consumer = await createConsumer(GroupId.PUSHERS);
+    const consumer = await createConsumer(GroupId.PUSHER);
 
-    await consumer.subscribe({ topic: Topic.CLEANED_LOGS });
+    await consumer.subscribe({
+      topic: Topic.LOGS_CLEANED,
+      fromBeginning: true,
+    });
 
     consumer.on(consumer.events.GROUP_JOIN, async (e) => {
       const topics = e.payload.memberAssignment;
-      SessionManager.getInstance().rebalance(topics[Topic.CLEANED_LOGS] || []);
+      await SessionManager.getInstance().rebalance(
+        topics[Topic.LOGS_CLEANED] || [],
+      );
     });
 
     consumer.run({
@@ -23,19 +28,14 @@ class Pusher {
           partition,
           log.userId,
         );
-        const key = join(
-          log.userId,
-          new Date(log.timestamp).toISOString().split("T")[0]!,
-          sessionId,
-          `${log.id}.json`,
-        );
-        const data: Omit<Log, "id" | "sessionId" | "userId"> = {
+        const logKey = join(log.userId, sessionId, "logs", `${log.id}.json`);
+        const data: LogData = {
           title: log.title,
           url: log.url,
           content: log.content,
           timestamp: log.timestamp,
         };
-        await upload(key, JSON.stringify(data));
+        await upload(logKey, JSON.stringify(data));
       },
     });
   }

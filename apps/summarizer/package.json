@@ -1,0 +1,26 @@
+{
+  "name": "summarizer",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
+    "lint": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "@repo/env": "workspace:*",
+    "@repo/kafka": "workspace:*",
+    "@repo/object-store": "workspace:*",
+    "@repo/validation": "workspace:*",
+    "groq-sdk": "^0.32.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
