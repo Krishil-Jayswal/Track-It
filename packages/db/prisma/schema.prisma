@@ -16,13 +16,20 @@ model User {
   oauth_type Oauth_Type
   oauth_id   String
   sessions   Session[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now()) @updatedAt
+
   @@unique([oauth_type, oauth_id])
 }
 
 model Session {
-  id        String    @id @default(uuid())
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  id         String   @id @default(uuid())
+  summary    String
+  tags       String[]
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 enum Oauth_Type {
